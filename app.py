@@ -151,8 +151,8 @@ catvton_mf_repo = "zhengchong/CatVTON-MaskFree"
 repo_path_mf = snapshot_download(repo_id=catvton_mf_repo)
 pipeline_p2p = CatVTONPix2PixPipeline(
     base_ckpt=args.p2p_base_model_path,
-    attn_ckpt=repo_path,
-    attn_ckpt_version="mix-48k-1024",
+    attn_ckpt=repo_path_mf,
+    attn_ckpt_version="mix",
     weight_dtype=init_weight_dtype(args.mixed_precision),
     use_tf32=args.allow_tf32,
     device='cuda'
