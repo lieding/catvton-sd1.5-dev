@@ -137,8 +137,9 @@ automasker = AutoMasker(
 
 
 # Flux-based CatVTON
+access_token = os.getenv("HUGGING_FACE_HUB_TOKEN")
 flux_repo = "black-forest-labs/FLUX.1-Fill-dev"
-pipeline_flux = FluxTryOnPipeline.from_pretrained(flux_repo)
+pipeline_flux = FluxTryOnPipeline.from_pretrained(flux_repo, use_auth_token=access_token)
 pipeline_flux.load_lora_weights(
     os.path.join(repo_path, "flux-lora"), 
     weight_name='pytorch_lora_weights.safetensors'
@@ -148,7 +149,7 @@ pipeline_flux.to("cuda", init_weight_dtype(args.mixed_precision))
 
 # Mask-free CatVTON
 catvton_mf_repo = "zhengchong/CatVTON-MaskFree"
-repo_path_mf = snapshot_download(repo_id=catvton_mf_repo)
+repo_path_mf = snapshot_download(repo_id=catvton_mf_repo, use_auth_token=access_token)
 pipeline_p2p = CatVTONPix2PixPipeline(
     base_ckpt=args.p2p_base_model_path,
     attn_ckpt=repo_path_mf,
