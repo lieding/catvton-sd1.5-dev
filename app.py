@@ -287,17 +287,11 @@ def submit_function_flux(
     person_image,
     cloth_image,
     cloth_type,
-    resolution,
     num_inference_steps,
     guidance_scale,
     seed,
     show_type
 ):
-    # Set height and width based on resolution
-    height = resolution
-    width = int(height * 0.75)
-    args.width = width
-    args.height = height
 
     # Process image editor input
     person_image, mask = person_image["background"], person_image["layers"][0]
@@ -573,7 +567,7 @@ def app_gradio():
                         )
                         # Guidence Scale
                         guidance_scale_flux = gr.Slider(
-                            label="CFG Strenth", minimum=0.0, maximum=7.5, step=0.5, value=2.5
+                            label="CFG Strenth", minimum=0.0, maximum=50, step=0.5, value=30
                         )
                         # Random Seed
                         seed_flux = gr.Slider(
@@ -584,12 +578,9 @@ def app_gradio():
                             choices=["result only", "input & result", "input & mask & result"],
                             value="input & mask & result",
                         )
-
-                with gr.Column(scale=2, min_width=500):
-                    result_image_flux = gr.Image(interactive=False, label="Result")
                     
                 with gr.Column(scale=2, min_width=500):
-                    result_image_p2p = gr.Image(interactive=False, label="Result")
+                    result_image_flux = gr.Image(interactive=False, label="Result")
                     with gr.Row():
                         # Photo Examples
                         root_path = "resource/demo/example"
