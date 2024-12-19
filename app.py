@@ -153,7 +153,7 @@ repo_path_mf = snapshot_download(repo_id=catvton_mf_repo, use_auth_token=access_
 pipeline_p2p = CatVTONPix2PixPipeline(
     base_ckpt=args.p2p_base_model_path,
     attn_ckpt=repo_path_mf,
-    attn_ckpt_version="mix",
+    attn_ckpt_version="mix-48k-1024",
     weight_dtype=init_weight_dtype(args.mixed_precision),
     use_tf32=args.allow_tf32,
     device='cuda'
