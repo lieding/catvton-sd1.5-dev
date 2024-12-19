@@ -29,6 +29,14 @@ def parse_args():
         ),
     )
     parser.add_argument(
+        "--p2p_base_model_path",
+        type=str,
+        default="timbrooks/instruct-pix2pix", 
+        help=(
+            "The path to the base model to use for evaluation. This can be a local path or a model identifier from the Model Hub."
+        ),
+    )
+    parser.add_argument(
         "--resume_path",
         type=str,
         default="zhengchong/CatVTON",
