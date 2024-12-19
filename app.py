@@ -330,7 +330,7 @@ def submit_function_flux(
     result_image = pipeline_flux(
         image=person_image,
         condition_image=cloth_image,
-        mask=mask,
+        mask_image=mask,
         num_inference_steps=num_inference_steps,
         guidance_scale=guidance_scale,
         generator=generator
