@@ -333,7 +333,8 @@ def submit_function_flux(
         mask_image=mask,
         num_inference_steps=num_inference_steps,
         guidance_scale=guidance_scale,
-        generator=generator
+        generator=generator,
+        return_dict=False,
     )[0]
 
     # Post-processing
