@@ -333,9 +333,8 @@ def submit_function_flux(
         mask_image=mask,
         num_inference_steps=num_inference_steps,
         guidance_scale=guidance_scale,
-        generator=generator,
-        return_dict=False,
-    )[0]
+        generator=generator
+    ).images[0]
 
     # Post-processing
     masked_person = vis_mask(person_image, mask)
