@@ -331,6 +331,8 @@ def submit_function_flux(
         image=person_image,
         condition_image=cloth_image,
         mask_image=mask,
+        width=args.width,
+        height=args.height,
         num_inference_steps=num_inference_steps,
         guidance_scale=guidance_scale,
         generator=generator
