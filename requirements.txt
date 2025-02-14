@@ -6,4 +6,11 @@ numpy==1.26.4
 opencv_python==4.10.0.84
 tqdm==4.66.4
 transformers==4.46.3
-huggingface_hub==0.25.0
+scipy==1.13.1
+fvcore==0.1.5.post20221221
+PyYAML==6.0.1
+cloudpickle==3.0.0
+omegaconf==2.3.0
+pycocotools==2.0.8
+av==12.3.0
+huggingface_hub

@@ -18,8 +18,8 @@ args = {
   'mixed_precision': 'fp16',
   'allow_tf32': True,
   'output_dir': './',
-  'width': 1024,
-  'height': 768
+  'width': 768,
+  'height': 1024
 }
 
 # Mask-based CatVTON
@@ -27,11 +27,11 @@ catvton_repo = "zhengchong/CatVTON"
 repo_path = snapshot_download(repo_id=catvton_repo)
 # Pipeline
 pipeline = CatVTONPipeline(
-    base_ckpt=args.base_model_path,
+    base_ckpt=args['base_model_path'],
     attn_ckpt=repo_path,
     attn_ckpt_version="mix",
-    weight_dtype=init_weight_dtype(args.mixed_precision),
-    use_tf32=args.allow_tf32,
+    weight_dtype=init_weight_dtype(args['mixed_precision']),
+    use_tf32=args['allow_tf32'],
     device='cuda'
 )
 # AutoMasker
@@ -46,14 +46,14 @@ def submit_function(
     person_image,
     cloth_image,
     cloth_type,
-    num_inference_steps,
-    guidance_scale,
-    seed,
-    show_type
+    num_inference_steps=26,
+    guidance_scale=2.5,
+    seed=-1,
+    show_type='result only'
 ):
     mask = None
 
-    tmp_folder = args.output_dir
+    tmp_folder = args['output_dir']
     date_str = datetime.now().strftime("%Y%m%d%H%M%S")
     result_save_path = os.path.join(tmp_folder, date_str[:8], date_str[8:] + ".png")
     if not os.path.exists(os.path.join(tmp_folder, date_str[:8])):
@@ -65,12 +65,12 @@ def submit_function(
 
     person_image = Image.open(person_image).convert("RGB")
     cloth_image = Image.open(cloth_image).convert("RGB")
-    person_image = resize_and_crop(person_image, (args.width, args.height))
-    cloth_image = resize_and_padding(cloth_image, (args.width, args.height))
+    person_image = resize_and_crop(person_image, (args['width'], args['height']))
+    cloth_image = resize_and_padding(cloth_image, (args['width'], args['height']))
     
     # Process mask
     if mask is not None:
-        mask = resize_and_crop(mask, (args.width, args.height))
+        mask = resize_and_crop(mask, (args['width'], args['height']))
     else:
         mask = automasker(
             person_image,
@@ -127,5 +127,6 @@ def image_grid(imgs, rows, cols):
 
 if __name__ == "__main__":
     cloth_type = 'upper' # "lower", "overall"
-    submit_function('./person.jpg', './cloth.jpg', cloth_type, 20, 2.5, -1, 'result only')
+    res_img = submit_function('./person.jpg', './cloth.jpg', cloth_type,)
+
 
