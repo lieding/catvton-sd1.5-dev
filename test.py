@@ -34,7 +34,6 @@ pipeline = CatVTONPipeline(
     use_tf32=args['allow_tf32'],
     device='cuda',
     skip_safety_check=True,
-    compile=True
 )
 # AutoMasker
 mask_processor = VaeImageProcessor(vae_scale_factor=8, do_normalize=False, do_binarize=True, do_convert_grayscale=True)
@@ -48,8 +47,8 @@ def submit_function(
     person_image,
     cloth_image,
     cloth_type,
-    num_inference_steps=26,
-    guidance_scale=2.5,
+    num_inference_steps=28,
+    guidance_scale=2.8,
     seed=-1,
     show_type='result only'
 ):
