@@ -16,7 +16,7 @@ from utils import init_weight_dtype, resize_and_crop, resize_and_padding
 args = {
   'base_model_path': 'booksforcharlie/stable-diffusion-inpainting',
   'mixed_precision': 'fp16',
-  'allow_tf32': True,
+  'allow_tf32': False,
   'output_dir': './',
   'width': 768,
   'height': 1024
@@ -32,7 +32,9 @@ pipeline = CatVTONPipeline(
     attn_ckpt_version="mix",
     weight_dtype=init_weight_dtype(args['mixed_precision']),
     use_tf32=args['allow_tf32'],
-    device='cuda'
+    device='cuda',
+    skip_safety_check=True,
+    compile=True
 )
 # AutoMasker
 mask_processor = VaeImageProcessor(vae_scale_factor=8, do_normalize=False, do_binarize=True, do_convert_grayscale=True)
